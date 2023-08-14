@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main_RO_PA_SC {
     public static void main(String[] args) {
-        //Actualization 1.1
+        //Actualization 1.2
         intro();
     }
     public static void intro() {
@@ -25,7 +25,7 @@ public class Main_RO_PA_SC {
             } else if (start_finish == 2) {
                 break;
             } else {
-                System.out.println("Option is not valid, try again");
+                System.out.println("Option is not valid, please try again.");
             }
         }
         System.out.println("\nTHANKS FOR PLAYING!");
@@ -43,14 +43,20 @@ public class Main_RO_PA_SC {
 
         System.out.println("The best of five times wins! Good luck!");
         System.out.println("Select: ");
-        System.out.println("1- paper");
-        System.out.println("2- scissors");
-        System.out.println("3- rock\n");
+        System.out.println("1- Paper");
+        System.out.println("2- Scissors");
+        System.out.println("3- Rock\n");
 
         for (int times = 0; times < 5; times++) {
-            int your_choose = scanner.nextInt();
-            int opponent = random.nextInt(1, 4);
 
+            int opponent = random.nextInt(1, 4);
+            int your_choose = 0;
+            try {
+                your_choose = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println(e + ".");
+                times += 5;
+            }
             if (your_choose == opponent) System.out.println("Equals.\n");
             else if (your_choose == 1) {
                 paper(opponent);
@@ -68,6 +74,7 @@ public class Main_RO_PA_SC {
                 System.out.println("Option is not valid, please try again.\n");
                 times--;
             }
+
         }
         if (points_machine > points_player) System.out.println(namePlayer + ", you have lost... sorry, try again.");
         else if (points_player > points_machine) System.out.println(namePlayer + " have Won! congratulations!");
