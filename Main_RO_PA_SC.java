@@ -6,23 +6,23 @@ import java.util.Scanner;
 
 public class Main_RO_PA_SC {
     public static void main(String[] args) {
-        //Actualization 1.3
+        //Actualization 1.4
         intro();
     }
     public static void intro() {
         Scanner scanner = new Scanner(System.in);
-        int start_finish = 3;
-        while (start_finish > 0) {
-            System.out.println("\nWrite 1 to start the game, write 2 to finish it...");
+        int start_finish = 4;
+        while (start_finish >= 1) {
+            System.out.println("\nWrite 1 to start the game, write 0 to finish it...");
             try {
                 start_finish = scanner.nextInt();
             } catch (InputMismatchException e) {
-                System.out.println("Just write 1 or 2... Try again.");
+                System.out.println("Just write 1 or 0... Try again.");
                 intro();
             }
             if (start_finish == 1) {
-                startGame();
-            } else if (start_finish == 2) {
+                timesOfGame();
+            } else if (start_finish == 0) {
                 break;
             } else {
                 System.out.println("Option is not valid, please try again.");
@@ -30,24 +30,45 @@ public class Main_RO_PA_SC {
         }
         System.out.println("\nTHANKS FOR PLAYING!");
     }
-    public static void startGame() {
+    public static void timesOfGame() {
         Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
+        System.out.println("How many times do you want to play?");
+        System.out.print("3, 5 or 7: ");
+        int timesForPlaying = 0;
 
-        System.out.print("Write your name player!: ");
-        String namePlayer = scanner.nextLine();
+        try {
+            timesForPlaying = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("\n" + e + ".");
+            System.out.println("DO NOT write letters!\n");
+            timesOfGame();
+        }
+        switch (timesForPlaying) {
+            case 3 -> startGame(3);
+            case 5 -> startGame(5);
+            case 7 -> startGame(7);
+            default -> {
+                System.out.println("Just select 3, 5 or 7");
+                timesOfGame();
+            }
+        }
+    }
+    public static void startGame(int timesForPlaying) {
+        Scanner scanner = new Scanner(System.in); Random random = new Random();
+
+        System.out.print("Write your name player!: "); String namePlayer = scanner.nextLine();
 
         System.out.println("Welcome " + namePlayer + "! Let's start the game." );
 
         int points_player = 0, points_machine = 0;
 
-        System.out.println("The best of five times wins! Good luck!");
+        System.out.println("The best of " + timesForPlaying + " times wins! Good luck!");
         System.out.println("Select: ");
         System.out.println("1- Paper");
         System.out.println("2- Scissors");
         System.out.println("3- Rock\n");
 
-        for (int times = 0; times < 5; times++) {
+        for (int times = 0; times < timesForPlaying; times++) {
 
             int opponent = random.nextInt(1, 4);
             int your_choose;
